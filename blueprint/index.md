@@ -91,20 +91,20 @@ summary: |
 
 ## Update the Messenger deployment
 
-1. In **Genesys Cloud > Admin > Messenger Deployment**, select the **Configuration** created in the [Messenger Configuration](#messenger-configuration "Goes to Messenger Configuration step")
+1. In **Genesys Cloud > Admin > Messenger Deployment**, select the **Configuration** that you created in the [Messenger configuration](#messenger-configuration "Goes to Messenger Configuration section").
 
- ![Genesys Cloud Messenger Deployment](./images/Configuration.png "Genesys Cloud Messenger Deployment")
+ ![Genesys Cloud Messenger deployment](./images/Configuration.png "Genesys Cloud Messenger deployment")
 
-3. Save the deployment. This creates a single Snippet.
-4. Use this single snippet on the website you would like the Messenger to appear.
+3. Save the deployment. This creates the snippet that you need.
+4. Deploy the snippet on the website where you would like Messenger to appear.
 
- ![Genesys Cloud Messenger Deployment](./images/Snippet.png "Genesys Cloud Messenger Deployment")
+ ![Genesys Cloud Messenger deployment](./images/Snippet.png "Genesys Cloud Messenger deployment")
 
-:::info
- Note: Note the deployment Id and environment from snippet to play with sample authentication app .
+:::primary
+ Note: Make a note of the deployment Id and environment from snippet. You can use these values to test the sample authentication app.
 :::
 
-## Configure authenticated messenger
+## Configure the authenticated Messenger
 
 Write necessary code to configure messenger for authenticated web messaging in your webpage.
 
