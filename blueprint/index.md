@@ -1,26 +1,16 @@
 ---
-title: OKTA Integration with Messenger for SSO configuration
+title: Integrate Messenger with Okta for identity management (SSO)
 indextype: blueprint
 icon: blueprint
 image: images/Messenger_Okta_Integration.png
 category: 6
 summary: |
-  This Genesys Cloud Developer Blueprint provides instructions to integrate web messenger with OKTA to perform SSO integration. The blueprint also contains steps for setting up an OKTA account to get authorization credentials.
+  This Genesys Cloud Developer Blueprint demonstrates how to integrate Messenger with the identity provider, Okta, in order to use SSO to authenthicate Messenger across multiple domains. This blueprint also includes the steps to set up an Okta account to obtain authorization credentials.
 ---
 
-This Genesys Cloud Developer Blueprint provides instructions to integrate web messenger with OKTA to perform SSO integration. The blueprint also contains steps for setting up an OKTA account to get authorization credentials.
+  This Genesys Cloud Developer Blueprint demonstrates how to integrate Messenger with the identity provider, Okta, in order to use SSO to authenthicate Messenger across multiple domains. This blueprint also includes the steps to set up an Okta account to obtain authorization credentials.
 
-![Flowchart](./images/Messenger_Okta_Integration.png "Integrate Messenger with OKTA - Identity Provider")
-
-## Purpose
-
-This page explains the steps that the users should follow to **Integrate Messenger** with the **Identity Provider-OKTA** via Genesys Cloud.
-
-## Contents
-
-- Solution components
-- Prerequisites
-- Implementation steps
+![Flow diagram](./images/Messenger_Okta_Integration.png "Integrate Messenger with Okta")
 
 ## Solution components
 
@@ -28,54 +18,44 @@ This page explains the steps that the users should follow to **Integrate Messeng
 
 ## Prerequisites
 
-## Specialized knowledge
+### Specialized knowledge
 
-Administrator-level knowledge of Genesys Cloud
+* Administrator-level knowledge of Genesys Cloud
 
 ## Genesys Cloud account
 
-- A Genesys Cloud license. For more information on licensing, see [Genesys Cloud Pricing](https://www.genesys.com/pricing).
-- The Master Admin role in Genesys Cloud. For more information, see [Roles and permissions overview](https://help.mypurecloud.com/articles/about-roles-permissions/) in the Genesys Cloud Resource Center.
+* A Genesys Cloud license. For more information, see [Genesys Cloud pricing](https://www.genesys.com/pricing "Opens the Genesys Cloud pricing page") on the Genesys website.
+* (Recommended) The Master Admin role in Genesys Cloud. For more information, see [Roles and permissions overview](https://help.mypurecloud.com/?p=24360 "Opens the Roles and permissions overview article") in the Genesys Cloud Resource Center.
 
-## OKTA Developer account
+## Okta Developer Edition account
 
-- An OKTA developer account. To create an OKTA developer account, refer [this](https://developer.okta.com/signup/) link.
+* An Okta Developer Edition account. For more information, see [the Okta Developer page](https://developer.okta.com/signup/ "Goes to the Okta Developer page on the Okta website").
 
-## Implementation Steps
+## Implementation steps
 
-Follow these instructions to integrate OKTA with Messenger.
+### Set up Okta
 
-- [OKTA Set up](#okta-set-up "Goes to the OKTA Set up section")
-- [Configure Genesys Cloud](#configure-genesys-cloud "Goes to Configure Genesys Cloud")
-	- [Genesys Cloud Integration](#integration "Goes to Genesys Cloud Integration")
-	- [Messenger Configuration](#messenger-configuration "Goes to Messenger Configuration")
-	- [Messenger Deployment](#messenger-deployment "Goes to Messenger Deployment")
-- [Configure authenticated messenger](#configure-authenticated-messenger "Goes to Auth Provider set up")
-
-## OKTA Set-Up
-
-1. Login to your **OKTA** developer account.
-2. In the left panel, select **Applications > Applications**. 
+1. Log in to your Okta Developer edition account.
+2. In the left panel, click **Applications > Applications**. 
 3. Click **Create App Integration**.
 
-  ![OKTA Application](./images/Application.png "OKTA Application page")
+  ![Okta Applications page](./images/Application.png "Okta Applications page")
 
-4. On the Create a new app integration page, select OpenID Connect in the Sign-in method section.
-5. Choose, **Web Application** in Application Type and click next.
-6. In the **New web app Integration page**, fill the following: 
-      - In **App integration name**, enter a name for your app integration or leave it as default.
-      - Select the required **Grant type**. 
-      - Fill **Sign-in redirect URIs**. For local development use - http://{local_domain_name}. Example: http://localhost:8080/. *Note: Using localhost is just a way to test locally. This has to be the actual URL where messenger will initialize after login*
-      - Similarly, fill **Sign-out redirect URIs**(http://{local_domain_name}).
-7. Add your web page origin in OKTA account under Security --> API --> Trusted origins.
+4. On the Create a new app integration page, in the Sign-in method section, click **OpenID Connect**.
+5. For the application type, select **Web Application** and then click **Next**.
+6. On the New web app integration** page, in the **App integration name** box, type a name for your app integration.
+7. Select the required **Grant type**. 
+8. Specifu the **Sign-in redirect URIs**. 
+	* For local use while you are developing, use http://{local_domain_name}. Example: http://localhost:8080/. 
+	* For production use, change this to the URL where Messenger will initialize after login.
+10. Specify the **Sign-out redirect URIs**.
+11. Under **Security**, click **API** > **Trusted Origin**, add your web page origin in the Okta account.
 
-	![OKTA Application](./images/OKTA.png "OKTA Application page")
+	![Okta Application page](./images/OKTA.png "OKTA Application page")
 	
-8. In **Assignment** section, select option which best suites your organization and click Save. This creates the client credentials.
-9. Okta URL can be found by navigating to Security --> API. Click default, Okta URL will be present at the **Issuer** section.
-10. Store the Client credentials safely for using it in [Integration](#integration "Goes to Integration") and note the Okta URL for using it during logging into Messenger.
-
-Now you are ready with **OKTA** set-up.
+11. In **Assignment** section, select option which best suites your organization and click Save. This creates the client credentials.
+12. Okta URL can be found by navigating to Security --> API. Click default, Okta URL will be present at the **Issuer** section.
+13. Store the Client credentials safely for using it in [Integration](#integration "Goes to Integration") and note the Okta URL for using it during logging into Messenger.
 
 ## Configure Genesys Cloud
 
