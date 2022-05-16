@@ -61,36 +61,32 @@ summary: |
  	* Okta client credentials 
 	* Okta URL  
 
-## Configure Genesys Cloud
+### Update the integration in Genesys Cloud
 
-Log in to your Genesys Cloud account and click the **Admin** menu.
+1. Log in to your Genesys Cloud account and click the **Admin** menu.
 
-![Genesys Cloud Admin menu](./images/Admin.png "Genesys Cloud Admin menu")
+2. In **Genesys Cloud > Admin > Integrations**, click the **+Integrations** button.
 
-## Update the integration
+  ![Install an integration](./images/Install_Integration.png "Install an integration")
 
-1. In **Genesys Cloud > Admin > Integrations**, click the **+Integrations** button.
-
-  ![Install and integration](./images/Install_Integration.png "Install and integration")
-
-2. Install the **OpenID Connect Messenger Configuration**.
+3. Install the **OpenID Connect Messenger Configuration**.
 
   ![Install the OpenID Connect Messenger configuration](./images/integration.png "Install the OpenID Connect Messenger configuration")
 
-3. In **Configuration** section, paste the Discovery Uri - https://<okta-user-domain>/oauth2/default/.well-known/openid-configuration.
-
+4. In the **Configuration** section, paste the Discovery Uri: `https://<okta-user-domain>/oauth2/default/.well-known/openid-configuration`.
+	
   ![Genesys Cloud Integration page](./images/Integration_properties.png "Genesys Cloud Integration page")
 
-4. In **Credentials** section, click **Configure** and provide the Okta client credentials.
-5. Click save.
-6. Navigate to the main Integrations page and set your integration to **Active**.
+5. In **Credentials** section, click **Configure** and provide the Okta client credentials.
+6. Click **Save**.
+7. Navigate to the main Integrations page and set your integration to **Active**.
 
-  ![Genesys Cloud Integration page](./images/Active.png "Genesys Cloud Integration page")
+  ![Activate your integration](./images/Active.png "Activate your integration")
 
 ## Update the Messenger configuration
 
 1. In **Genesys Cloud > Admin > Messenger Configuration**, enable Authentication.
-2. Select the **OAuth integration** created from [Genesys Cloud Integration](#integration "Goes to Genesys Cloud Integration step") from the dropdown.
+2. From the dropdown, select the **OAuth integration** created from [Genesys Cloud Integration](#integration "Goes to Genesys Cloud Integration step").
 
   ![Genesys Cloud Integration page](./images/Messenger-Okta-configuration.png "Genesys Cloud Integration page")
 
