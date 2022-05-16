@@ -1,4 +1,4 @@
-# OKTA Integration with Messenger for SSO configuration (DRAFT)
+# OKTA Integration with Messenger for SSO configuration
 
 > View the full [OKTA Integration with Messenger on Genesys Cloud Blueprint](https://developer.mypurecloud.com/blueprints/messenger-authentication-okta-integration-blueprint/index) article on the Genesys Cloud Developer Center.
 
