@@ -63,9 +63,7 @@ summary: |
 
 ### Update the integration in Genesys Cloud
 
-1. Log in to your Genesys Cloud account and click the **Admin** menu.
-
-2. In **Genesys Cloud > Admin > Integrations**, click the **+Integrations** button.
+1. Log in to your Genesys Cloud account and click **Admin** > **Integrations** > **+Integrations**.
 
   ![Install an integration](./images/Install_Integration.png "Install an integration")
 
@@ -79,14 +77,15 @@ summary: |
 
 5. In **Credentials** section, click **Configure** and provide the Okta client credentials.
 6. Click **Save**.
-7. Navigate to the main Integrations page and set your integration to **Active**.
+7. On the main Integrations page, set your integration to **Active**.
 
   ![Activate your integration](./images/Active.png "Activate your integration")
 
 ## Update the Messenger configuration
 
-1. In **Genesys Cloud > Admin > Messenger Configuration**, enable Authentication.
-2. From the dropdown, select the **OAuth integration** created from [Genesys Cloud Integration](#integration "Goes to Genesys Cloud Integration step").
+1. In Genesys Cloud > **Admin**, under **Message**, click **Messenger Configurations**. 
+2. Enable Authentication.
+3. From the list, select the **OAuth integration** created from [Genesys Cloud Integration](#integration "Goes to Genesys Cloud Integration step").
 
   ![Genesys Cloud Integration page](./images/Messenger-Okta-configuration.png "Genesys Cloud Integration page")
 
