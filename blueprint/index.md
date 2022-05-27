@@ -139,19 +139,19 @@ Follow these steps to include the Okta Auth JavaScript SDK in your webpage.
 	const authClient = new OktaAuth(oktaConfig)		
 	```
 
-The OktaAuth object contains the following parameters:
+The following table describes the parameters for the OktaAuth object.
 
 | Parameter | Description |
 | --------- |----------|
-| redirectUri | Specify the URL to where the browser should redirect the user after they signIn. Use your full page URL, which is listed in your Okta application's Sign-in redirect URIs.|
-| postLogoutRedirectUri | Specify the URL where the browser should redirect the user after signOut. Use your full page URL, which is listed in your Okta application's Sign-out redirect URIs. If you do not specify this value, your application's origin (window.location.origin) will be used.|
-| clientId | Specify the clientID that was generated when you [set up your Okta app](#set-up-okta).|
-| issuer | Specify the Okta URL that is listed in your Okta Developer Edition account under **Security** > **API** > **default**.|
-| scopes| If required, set the auth scopes to specify the access privileges that are being requested as part of authorization.|
-| pkce | The default value is true, which enables the PKCE OAuth flow. To use the Implicit flow or the Authorization Code flow, set this option to false. *Note: The PKCE OAuth flow works only with a secure domain.* |
-| responseType| To use the Authorization Code grant type, set this option to **code**.|
-| maxAge | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
-| nonce | This is a random string value that the Okta Auth JavaScript SDK generates. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value.|
+| `redirectUri` | Specify the URL to where the browser should redirect the user after they signIn. Use your full page URL, which is listed in your Okta application's Sign-in redirect URIs.|
+| `postLogoutRedirectUri` | Specify the URL where the browser should redirect the user after signOut. Use your full page URL, which is listed in your Okta application's Sign-out redirect URIs. If you do not specify this value, your application's origin (window.location.origin) will be used.|
+| `clientId` | Specify the clientID that was generated when you [set up your Okta app](#set-up-okta "Goes to the Set up Okta section").|
+| `issuer` | Specify the Okta URL that is listed in your Okta Developer Edition account under **Security** > **API** > **default**.|
+| `scopes`| If required, set the auth scopes to specify the access privileges that are being requested as part of authorization.|
+| `pkce` | The default value is true, which enables the PKCE OAuth flow. To use the Implicit flow or the Authorization Code flow, set this option to false. *Note: The PKCE OAuth flow works only with a secure domain.* |
+| `responseType`| To use the Authorization Code grant type, set this option to **code**.|
+| `maxAge` | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
+| `nonce` | This is a random string value that the Okta Auth JavaScript SDK generates. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value.|
 {: class="table-striped table-bordered"}
 
 4. To trigger the signIn action, call the **signInWithRedirect** method with the request parameters. The **originalUri** parameter tracks where the user came from before they signed in. The additional parameters are mapped to the Authorize options. You can trigger the sign-in action via a link, button, and so on.
@@ -185,25 +185,25 @@ If you add the optional parameters, `nonce` and `maxAge`, your request URL would
 authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=<RedirectURL>&state=eyJiYWNrVG9QYXRoIjoiL3ByaXZhdGUiLCJpc3N1ZXIiOiJva3RhIiwiYnl0ZXMiOiItSEhlWEV3YmNRak5fQWl3a0NkanVDNEZpQ1VPRV81emkzeFlKa1BQaWcwIn0%3D&nonce=<nonce>&max_age=<maxAge>`
 ```
 
-The Auth URL contains the following parameters:
+The following table describes the parameters for the Auth URL.
 
-	| Parameter | Description |
-	| --------- |----------|
-	| DomainURL | Authorization server's endpoint(https://{yourOktaDomain}/oauth2/default/v1/authorize)|
-	| ClientId  | Specify the clientID which was generated when the Okta app was created. Refer [OKTA Set-Up](#okta-set-up)|
-	| RedirectURL| Specify the url where the browser should be redirected after signIn. This must be your full page URL which is listed in your Okta application's Sign-in redirect URIs.|
-	| Auth scopes| Set auth scopes to specify what access privileges are being requested as part of the authorization, if required.|
-	| response_type| Set to **code** indicating that we are using the Authorization Code grant type|
-	| max_age | Allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
-	| nonce | A random string value preferably an uuid format which is returned in the ID token. |
-	| codeChallenge | A string value generated from code verifier to support PKCE flow in OAuth. The code challenge is verified in the access token request. *Note: Code verifier is a random string value between 43 and 128 characters long. Okta uses it to recompute the code_challenge and verify if it matches the original code_challenge in the authorization request.* |
-	| codeChallengeMethod | Method used to derive the code challenge for PKCE flow. Valid value: S256. |
-		{: class="table-striped table-bordered"}
+| Parameter | Description |
+| --------- |----------|
+| `DomainURL` | Specify the authorization server's endpoint (https://{yourOktaDomain}/oauth2/default/v1/authorize).|
+| `ClientId`  | Specify the clientID that was generated when you [set up your Okta app](#set-up-okta "Goes to the Set up Okta section").|
+| `RedirectURL`| Specify the URL to where the browser should be redirected when the user signs in. This must be your full page URL, which is listed in your Okta application's sign-in redirect URIs.|
+| `Auth scopes`| Set auth scopes to specify the access privileges that are being requested as part of the authorization, if required.|
+| `response_type`| Set this parameter to **code** to use the **Authorization Code** grant type.|
+| `max_age` | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
+| `nonce` | Specify a random string value, preferably an UUID format, that is returned in the ID token. |
+| `codeChallenge` | Specify a string value that is generated by a code verifier to support the PKCE OAuth flow. The code challenge is verified in the access token request. *Note: Code verifier is a random string value between 43 and 128 characters long. Okta uses it to recompute the code_challenge and verify if it matches the original code_challenge in the authorization request.* |
+| `codeChallengeMethod` | Method used to derive the code challenge for PKCE Oauth flow. The valid value: S256. |
+	{: class="table-striped table-bordered"}
 
 2. If the user does not have an existing session, making this request opens the **Okta** sign-in page.
-3. If the user does have an existing session, they arrive at the specified redirect_uri along with a code, as shown in the code snippet.
+3. If the user does have an existing session, they arrive at the specified redirect_uri along with a code, as shown in the following code snippet.
 
-```{"title":"Redirect url appended with code and state Example","language":"javascript"}
+```{"title":"Redirect url appended with code and state","language":"javascript"}
 https://mypureclloud.com/?code=P5I7mdxxdv13_JfXrCSq&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601 // Code specifies Okta authcode
 ```
 
