@@ -116,9 +116,9 @@ summary: |
 
 Follow these steps to include the Okta Auth JavaScript SDK in your webpage.
 
-1. Get the[Okta Auth JavaScript SDK](https://global.oktacdn.com/okta-auth-js/5.2.2/okta-auth-js.min.js "Okta Auth JavaScript SDK"). 
+1. Get the [Okta Auth JavaScript SDK](https://global.oktacdn.com/okta-auth-js/5.2.2/okta-auth-js.min.js "Okta Auth JavaScript SDK"). 
 
-2. Include the Okta-auth-js library in your webpage.
+2. Include the okta-auth-js library in your webpage.
 
 	```{"title":"Okta SDK","language":"html"}
 	<script src="https://global.oktacdn.com/okta-auth-js/5.2.2/okta-auth-js.min.js" type="text/javascript"></script>
@@ -148,13 +148,13 @@ The OktaAuth object contains the following parameters:
 | clientId | Specify the clientID that was generated when you [set up your Okta app](#set-up-okta).|
 | issuer | Specify the Okta URL that is listed in your Okta Developer Edition account under **Security** > **API** > **default**.|
 | scopes| If required, set the auth scopes to specify the access privileges that are being requested as part of authorization.|
-| pkce | The default value is true, which enables the PKCE OAuth flow. To use the Implicit flow or the Authorization Code flow, set this option to false. *Note: Pkce flow works only with a secure domain.* |
+| pkce | The default value is true, which enables the PKCE OAuth flow. To use the Implicit flow or the Authorization Code flow, set this option to false. *Note: The PKCE Oauth flow works only with a secure domain.* |
 | responseType| To use the Authorization Code grant type, set this option to **code**.|
-| maxAge | Specify the allowable elapsed time in seconds, since the last time the end user was actively authenticated by Okta.|
+| maxAge | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
 | nonce | This is a random string value that the Okta Auth JavaScript SDK generates. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value.|
 {: class="table-striped table-bordered"}
 
-4. To trigger the signIn action, call the **signInWithRedirect** method with the request parameters. The **originalUri** parameter tracks where the user came from before they signed in. The additional parameters are mapped to the Authorize options. You can trigger the signIn action via a link, button, and so on.
+4. To trigger the signIn action, call the **signInWithRedirect** method with the request parameters. The **originalUri** parameter tracks where the user came from before they signed in. The additional parameters are mapped to the Authorize options. You can trigger the sign-in action via a link, button, and so on.
 
 	```{"title":"OktaAuth signInWithRedirect method","language":"JavaScript"}
 	authClient.signInWithRedirect({
@@ -163,9 +163,9 @@ The OktaAuth object contains the following parameters:
 	});
 	```
 
-### Enable sign-in with the OAuth endpoint
+### Enable authenticatecd sign-in with the OAuth endpoint
 
-1. Generate **Auth URL** and trigger the login action. You could trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
+1. Generate **Auth URL** and trigger the login action. You can trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
 
 	```{"title":"Auth url Example","language":"html"}
 	//Your request URL would look something like this
