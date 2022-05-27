@@ -148,7 +148,7 @@ The OktaAuth object contains the following parameters:
 | clientId | Specify the clientID that was generated when you [set up your Okta app](#set-up-okta).|
 | issuer | Specify the Okta URL that is listed in your Okta Developer Edition account under **Security** > **API** > **default**.|
 | scopes| If required, set the auth scopes to specify the access privileges that are being requested as part of authorization.|
-| pkce | The default value is true, which enables the PKCE OAuth flow. To use the Implicit flow or the Authorization Code flow, set this option to false. *Note: The PKCE Oauth flow works only with a secure domain.* |
+| pkce | The default value is true, which enables the PKCE OAuth flow. To use the Implicit flow or the Authorization Code flow, set this option to false. *Note: The PKCE OAuth flow works only with a secure domain.* |
 | responseType| To use the Authorization Code grant type, set this option to **code**.|
 | maxAge | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
 | nonce | This is a random string value that the Okta Auth JavaScript SDK generates. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value.|
@@ -165,23 +165,28 @@ The OktaAuth object contains the following parameters:
 
 ### Enable authenticatecd sign-in with the OAuth endpoint
 
-1. Generate **Auth URL** and trigger the login action. You can trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
+1. Generate the **Auth URL** and trigger the login action. You can trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
 
-	```{"title":"Auth url Example","language":"html"}
-	//Your request URL would look something like this
+Your request URL would look something like this:
 
-	authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=<RedirectURL>&state=eyJiYWNrVG9QYXRoIjoiL3ByaXZhdGUiLCJpc3N1ZXIiOiJva3RhIiwiYnl0ZXMiOiItSEhlWEV3YmNRak5fQWl3a0NkanVDNEZpQ1VPRV81emkzeFlKa1BQaWcwIn0%3D`
+```{"title":"Request URL","language":"html"}
+authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=<RedirectURL>&state=eyJiYWNrVG9QYXRoIjoiL3ByaXZhdGUiLCJpc3N1ZXIiOiJva3RhIiwiYnl0ZXMiOiItSEhlWEV3YmNRak5fQWl3a0NkanVDNEZpQ1VPRV81emkzeFlKa1BQaWcwIn0%3D`
+```
 
-	//Your request URL would look something like this if pkce flow is enabled
+if the PKCE OAuth flow is enabled, your request URL would look something like this: 
 
-	authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=<RedirectURL>&state=eyJiYWNrVG9QYXRoIjoiL3ByaXZhdGUiLCJpc3N1ZXIiOiJva3RhIiwiYnl0ZXMiOiItSEhlWEV3YmNRak5fQWl3a0NkanVDNEZpQ1VPRV81emkzeFlKa1BQaWcwIn0%3D&code_challenge_method=S256&code_challenge=<codeChallenge>`
+```{"title":"Request URL with PKCE OAuth flow enabled","language":"html"}
+authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=<RedirectURL>&state=eyJiYWNrVG9QYXRoIjoiL3ByaXZhdGUiLCJpc3N1ZXIiOiJva3RhIiwiYnl0ZXMiOiItSEhlWEV3YmNRak5fQWl3a0NkanVDNEZpQ1VPRV81emkzeFlKa1BQaWcwIn0%3D&code_challenge_method=S256&code_challenge=<codeChallenge>`
+```
 
-	//Your request URL would look something like this if optional parameter(nonce & maxAge) is added
+If you add the optional parameters, `nonce` and `maxAge`, your request URL would look something like this:
 
-	authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=<RedirectURL>&state=eyJiYWNrVG9QYXRoIjoiL3ByaXZhdGUiLCJpc3N1ZXIiOiJva3RhIiwiYnl0ZXMiOiItSEhlWEV3YmNRak5fQWl3a0NkanVDNEZpQ1VPRV81emkzeFlKa1BQaWcwIn0%3D&nonce=<nonce>&max_age=<maxAge>`
-	```
+```{"title":"Request URL with optional parameters","language":"html"}
+authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=<RedirectURL>&state=eyJiYWNrVG9QYXRoIjoiL3ByaXZhdGUiLCJpc3N1ZXIiOiJva3RhIiwiYnl0ZXMiOiItSEhlWEV3YmNRak5fQWl3a0NkanVDNEZpQ1VPRV81emkzeFlKa1BQaWcwIn0%3D&nonce=<nonce>&max_age=<maxAge>`
+```
 
 The Auth URL contains the following parameters:
+
 	| Parameter | Description |
 	| --------- |----------|
 	| DomainURL | Authorization server's endpoint(https://{yourOktaDomain}/oauth2/default/v1/authorize)|
