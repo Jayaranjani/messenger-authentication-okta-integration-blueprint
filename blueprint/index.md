@@ -35,7 +35,7 @@ summary: |
 
 ### Set up Okta
 
-1. Log in to your Okta Developer edition account.
+1. Log in to your Okta Developer Edition account.
 2. In the left panel, click **Applications > Applications**. 
 3. Click **Create App Integration**.
 
@@ -43,7 +43,7 @@ summary: |
 
 4. On the Create a new app integration page, in the Sign-in method section, click **OpenID Connect**.
 5. For the application type, select **Web Application** and then click **Next**.
-6. On the New Web App Integration** page, in the **App integration name** box, type a name for your app integration.
+6. On the New Web App Integration page, in the **App integration name** box, type a name for your app integration.
 7. Select the required **Grant type**. 
 
 ![Okta Application page](./images/OKTA.png "OKTA Application page")
@@ -55,13 +55,13 @@ summary: |
 	* For local use while you are developing, add http://{local_domain_name}. Example: http://localhost:8080/. 
 	* For production use, add the appropriate URL.
 10. Under **Security**, click **API** > **Trusted Origin** and add your web page origin in the Okta account.
-11. In the **Assignment** section, select the option that best suites your organization and click **Save**. This creates the client credentials.
+11. In the **Assignment** section, select the option that best suits your organization and click **Save**. This creates the client credentials.
 12. To find the Okta URL, navigate to **Security** > **API** and click **Default**. The Okta URL appears in the **Issuer** section.
 14. Make a note of these items, which you will need later: 
  	* Okta client credentials 
 	* Okta URL  
 
-### Update the integration in Genesys Cloud
+### Create an Oauth integration in Genesys Cloud
 
 1. Log in to your Genesys Cloud account and click **Admin** > **Integrations** > **+Integrations**.
 
@@ -77,7 +77,7 @@ summary: |
 
 5. In **Credentials** section, click **Configure** and provide the Okta client credentials.
 6. Click **Save**.
-7. On the main Integrations page, set your integration to **Active**.
+7. On the main Integrations page, set your new integration to **Active**.
 
   ![Activate your integration](./images/Active.png "Activate your integration")
 
@@ -85,13 +85,13 @@ summary: |
 
 1. In Genesys Cloud > **Admin**, under **Message**, click **Messenger Configurations**. 
 2. Enable Authentication.
-3. From the list, select the **OAuth integration** created from [Genesys Cloud Integration](#integration "Goes to Genesys Cloud Integration step").
+3. From the list, select the [**OAuth integration** you created](#create-an-oauth-integration-in-Genesys-Cloud "Goes to Create an Oauth integration in Genesys Cloud section").
 
-  ![Genesys Cloud Integration page](./images/Messenger-Okta-configuration.png "Genesys Cloud Integration page")
+  ![Apps tab in the Messenger Configurations page](./images/Messenger-Okta-configuration.png "Apps tab in the Messenger Configurations page")
 
 ## Update the Messenger deployment
 
-1. In Genesys Cloud > **Admin**, under **Message**, click **Messenger Deployments**, select the configuration [that you created](#messenger-configuration "Goes to the Messenger Configuration section").
+1. In Genesys Cloud > **Admin**, under **Message**, click **Messenger Deployments**, and then select the configuration [that you created](#update-the-messenger-configuration "Goes to the Update the Messenger configuration section").
 
  ![Genesys Cloud Messenger deployment](./images/Configuration.png "Genesys Cloud Messenger deployment")
 
@@ -101,29 +101,29 @@ summary: |
  ![Genesys Cloud Messenger deployment](./images/Snippet.png "Genesys Cloud Messenger deployment")
 
 :::primary
- Note: Make a note of the deployment Id and environment from the snippet. You can use these values to [run the sample authentication app](#run-the-sample-app "Goes to the Run the sample app section).
+**Note**: Make a note of the deployment key and environment from the snippet. You can use these values to [run the sample authentication app](#run-the-sample-authentication-app "Goes to the Run the sample app section).
 :::
 
 ## Configure the authenticated Messenger
 
-Write necessary code to configure authenticated web messaging for Messenger when it runs in your webpage.
+1. Write necessary code to configure authenticated web messaging for Messenger when it runs in your webpage.
 
-To enable the Okta Sign-In experience using JavaScript, do either of the following:  
-  * [Enable sign-in with the Okta Auth JavaScript SDK](#enable-sign-in-with-the-Okta-Auth-JavaScript-SDK).
-  * Use the OAuth 2.0 endpoint.
+2. To enable the Okta Sign-In experience using JavaScript, do either of the following:  
+  * [Enable authenticated sign-in with the Okta Auth JavaScript SDK](#enable-authenticated-sign-in-with-the-Okta-Auth-JavaScript-SDK "Goes to the Enable authenticated sign-in with the Okta Auth JavaScript SDK section).
+  * [Enable authenticated sign-in with the OAuth endpoint](#enable-authenticated-sign-in-with-the-oauth-endpoint "Goes to the Enable authenticated sign-in with the OAuth endpoint section").
 
-### Enable sign-in with the Okta Auth JavaScript SDK  
+### Enable authenticated sign-in with the Okta Auth JavaScript SDK  
 
-To enable sign-in, include the Okta Auth JavaScript SDK in your webpage.
+Follow these steps to include the Okta Auth JavaScript SDK in your webpage.
 
 1. Get the[Okta Auth JavaScript SDK](https://global.oktacdn.com/okta-auth-js/5.2.2/okta-auth-js.min.js "Okta Auth JavaScript SDK"). 
 
 2. Include the Okta-auth-js library in your webpage.
 
-	```{"title":"OKTA SDK","language":"html"}
+	```{"title":"Okta SDK","language":"html"}
 	<script src="https://global.oktacdn.com/okta-auth-js/5.2.2/okta-auth-js.min.js" type="text/javascript"></script>
 	```
-3. Create an instance of the OktaAuth object and configure the OKTA authorization options.
+3. Create an instance of the OktaAuth object and configure the Okta authorization options.
 
 	```{"title":"OktaAuth Object","language":"JavaScript"}
 	const oktaConfig = {
@@ -163,7 +163,7 @@ The OktaAuth object contains the following parameters:
 	});
 	```
 
-### Enable Okta Sign-In with the endpoint
+### Enable sign-in with the OAuth endpoint
 
 1. Generate **Auth URL** and trigger the login action. You could trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
 
@@ -241,9 +241,9 @@ AuthProvider.command('Auth.logout').finally(() => {
 });
 ```
 
-### Run the sample app
+### Run the sample authentication app
 
-You can run the sample app locally or from the Blueprint repo.
+This blueprint includes a sample authentication app that you can run locally or from the Blueprint repo.
 
 :::primary
 **Note**: Regardless of the location from where you run the sample app, you need a Genesys Cloud user account in order for it to work. Our sample app uses the [Okta Sign-In using SDK](#configure-authenticated-messenger) approach.
