@@ -165,7 +165,7 @@ The OktaAuth object contains the following parameters:
 
 ### Enable Okta Sign-In with the endpoint
 
-	- Generate **Auth URL** and trigger the login action. This could be triggered with the help of link, button, etc.,
+1. Generate **Auth URL** and trigger the login action. You could trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
 
 	```{"title":"Auth url Example","language":"html"}
 	//Your request URL would look something like this
@@ -181,7 +181,7 @@ The OktaAuth object contains the following parameters:
 	authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=<RedirectURL>&state=eyJiYWNrVG9QYXRoIjoiL3ByaXZhdGUiLCJpc3N1ZXIiOiJva3RhIiwiYnl0ZXMiOiItSEhlWEV3YmNRak5fQWl3a0NkanVDNEZpQ1VPRV81emkzeFlKa1BQaWcwIn0%3D&nonce=<nonce>&max_age=<maxAge>`
 	```
 
-	- The Auth URL contains the following parameters:
+The Auth URL contains the following parameters:
 	| Parameter | Description |
 	| --------- |----------|
 	| DomainURL | Authorization server's endpoint(https://{yourOktaDomain}/oauth2/default/v1/authorize)|
@@ -195,14 +195,14 @@ The OktaAuth object contains the following parameters:
 	| codeChallengeMethod | Method used to derive the code challenge for PKCE flow. Valid value: S256. |
 		{: class="table-striped table-bordered"}
 
-2. If the user doesn't have an existing session, making this request opens the **OKTA** sign-in page.
-3. If they have an existing session, they arrive at the specified redirect_uri along with a code as shown in the code snippet.
+2. If the user does not have an existing session, making this request opens the **Okta** sign-in page.
+3. If the user does have an existing session, they arrive at the specified redirect_uri along with a code, as shown in the code snippet.
 
 ```{"title":"Redirect url appended with code and state Example","language":"javascript"}
-https://mypureclloud.com/?code=P5I7mdxxdv13_JfXrCSq&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601 // Code specifies OKTA authcode
+https://mypureclloud.com/?code=P5I7mdxxdv13_JfXrCSq&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601 // Code specifies Okta authcode
 ```
 
-4. Page reload takes place when redirection happens from **OKTA**. This initializes [Auth plugin](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-plugin 'Goes to the SDK Commands and Events page') and calls its command [getTokens](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-plugin 'Goes to the SDK Commands and Events page') for Authentication.
+4. The page is reloaded when the user is redirected from the **Okta** sign-in page. The page reload initializes the [Auth plugin](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-plugin 'Goes to the SDK Commands and Events page') and calls its [getTokens command](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-plugin 'Goes to the SDK Commands and Events page') for Authentication.
 5. Split the **OKTA** authcode from the redirect url.
 6. Create your own authprovider plugin and register the command [getAuthCode](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#authprovider-plugin 'Goes to the SDK Commands and Events page').
 
@@ -233,7 +233,7 @@ Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
 });
 ```
 
-7. Trigger the signOut action by calling the OKTA SDK's method **signOut**. This method should be called after [Auth.logout](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-logout 'Goes to Auth provider plugin') command. This could be triggered with the help of link, button, etc.,
+7. Trigger the signOut action, call the Okta Auth JavaScript SDK's **signOut** method after the [Auth.logout command](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-logout 'Goes to Auth provider plugin'). You could trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
 
 ```{"title":"OktaAuth signOut method","language":"JavaScript"}
 AuthProvider.command('Auth.logout').finally(() => {
@@ -243,17 +243,17 @@ AuthProvider.command('Auth.logout').finally(() => {
 
 ### Run the sample app
 
-You can run the sample app locally or from the blueprint repo.
+You can run the sample app locally or from the Blueprint repo.
 
 :::primary
-**Note**: Regardless of where you run the sample app from, you need a Genesys Cloud user account in order for it to work. Our sample app uses [Okta Sign-In using SDK](#configure-authenticated-messenger) approach.
+**Note**: Regardless of the location from where you run the sample app, you need a Genesys Cloud user account in order for it to work. Our sample app uses the [Okta Sign-In using SDK](#configure-authenticated-messenger) approach.
 :::
 
-To run the sample app from the blueprint repo:
+To run the sample app from the Blueprint repo:
 
 1. Click [here](https://genesyscloudblueprints.github.io/messenger-authentication-okta-integration-blueprint/oauth.html "Goes to the sample app").
 
-2. Enter the environment and deployment id configured With Okta. Click Submit.
+2. Enter the environment and deployment Id configured with Okta and click **Submit**.
 
 3. Enter the client credentials for authenticated web messaging.
 
@@ -261,4 +261,6 @@ To run the sample app from the blueprint repo:
  Refer the source code for sample app [here](https://github.com/GenesysCloudBlueprints/messenger-authentication-okta-integration-blueprint/blob/main/docs/oauth.html "Goes to source code of the sample app")
 :::
 
-  For more information, see [Platform API](/api/digital/webmessaging/authenticate "Goes to the Authenticated WebMessaging page in the Genesys Cloud Developer Center").
+##Additional resources 
+
+* [Platform API](/api/digital/webmessaging/authenticate "Goes to the Authenticated WebMessaging page in the Genesys Cloud Developer Center").
