@@ -120,7 +120,7 @@ Follow these steps to include the Okta Auth JavaScript SDK in your webpage.
 
 2. Include the okta-auth-js library in your webpage.
 
-	```{"title":"Okta SDK","language":"html"}
+	```{"title":Okta Auth JavaScript SDK","language":"html"}
 	<script src="https://global.oktacdn.com/okta-auth-js/5.2.2/okta-auth-js.min.js" type="text/javascript"></script>
 	```
 3. Create an instance of the OktaAuth object and configure the Okta authorization options.
@@ -167,21 +167,21 @@ The following table describes the parameters for the OktaAuth object.
 
 1. Generate the **Auth URL** and trigger the login action. You can trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
 
-Your request URL would look something like this:
+Your request URL looks like this:
 
-```{"title":"Request URL","language":"html"}
+```{"title":"Example request URL","language":"html"}
 authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=<RedirectURL>&state=eyJiYWNrVG9QYXRoIjoiL3ByaXZhdGUiLCJpc3N1ZXIiOiJva3RhIiwiYnl0ZXMiOiItSEhlWEV3YmNRak5fQWl3a0NkanVDNEZpQ1VPRV81emkzeFlKa1BQaWcwIn0%3D`
 ```
 
-if the PKCE OAuth flow is enabled, your request URL would look something like this: 
+If you enable the PKCE OAuth flow, your request URL looks like this: 
 
-```{"title":"Request URL with PKCE OAuth flow enabled","language":"html"}
+```{"title":"Example request URL with PKCE OAuth flow enabled","language":"html"}
 authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=<RedirectURL>&state=eyJiYWNrVG9QYXRoIjoiL3ByaXZhdGUiLCJpc3N1ZXIiOiJva3RhIiwiYnl0ZXMiOiItSEhlWEV3YmNRak5fQWl3a0NkanVDNEZpQ1VPRV81emkzeFlKa1BQaWcwIn0%3D&code_challenge_method=S256&code_challenge=<codeChallenge>`
 ```
 
-If you add the optional parameters, `nonce` and `maxAge`, your request URL would look something like this:
+If you add the optional parameters, `nonce` and `maxAge`, your request URL looks like this:
 
-```{"title":"Request URL with optional parameters","language":"html"}
+```{"title":"Example request URL with optional parameters `nonce` and `maxAge`","language":"html"}
 authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=<RedirectURL>&state=eyJiYWNrVG9QYXRoIjoiL3ByaXZhdGUiLCJpc3N1ZXIiOiJva3RhIiwiYnl0ZXMiOiItSEhlWEV3YmNRak5fQWl3a0NkanVDNEZpQ1VPRV81emkzeFlKa1BQaWcwIn0%3D&nonce=<nonce>&max_age=<maxAge>`
 ```
 
@@ -207,9 +207,9 @@ The following table describes the parameters for the Auth URL.
 https://mypureclloud.com/?code=P5I7mdxxdv13_JfXrCSq&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601 // Code specifies Okta authcode
 ```
 
-4. The page is reloaded when the user is redirected from the **Okta** sign-in page. The page reload initializes the [Auth plugin](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-plugin 'Goes to the SDK Commands and Events page') and calls its [getTokens command](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-plugin 'Goes to the SDK Commands and Events page') for Authentication.
-5. Split the **OKTA** authcode from the redirect url.
-6. Create your own authprovider plugin and register the command [getAuthCode](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#authprovider-plugin 'Goes to the SDK Commands and Events page').
+4. The page is reloaded when the user is redirected from the **Okta** sign-in page. The page reload initializes the [Auth plugin](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-plugin "Goes to the Commands and events page") and calls its [getTokens command](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-plugin "Goes to the Commands and events page") for authentication.
+5. Split the **OKTA** authcode from the redirect URL.
+6. Create your AuthProvider plugin and register the [getAuthCode](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#authprovider-plugin "Goes to the Commands and events page") command.
 
 ```{"title":"Prepare the AuthProvider plugin","language":"javascript"}
 Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
@@ -225,20 +225,20 @@ Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
 
   AuthProvider.registerCommand('getAuthCode', (e) => {
 
-  //Messenger will call this command to get the the tokens.
+  //Messenger calls this command to get the the tokens.
 
   e.resolve({
       authCode: <authCode>,			// Pass your authCode here
-      redirectUri: <your redirect uri>,	// Pass the redirection URI configured in your Authentication provider here
-      nonce: <nonce>,				// For Sign-In using SDK approach, pass the random string value stored in session storage. For endpoint approach, generate a random string value
-      maxAge: <maxAge>				// Pass elapsed time in seconds and it is an optional parameter
-      codeVerifier: <codeVerifier>		// For PKCE flow : If SDK approach is used, get code verifier from session storage. If endpoint approach is used, pass a cryptographically random string which you used to generate codeChallenge
+      redirectUri: <your redirect uri>,	// Pass the redirection URI configured in your authentication provider here
+      nonce: <nonce>,				//  If you use the Okta Auth JavaScript SDK to authenticate signin, pass the random string value stored in session storage. If you use the endpoint to authenticate signin, generate a random string value.
+      maxAge: <maxAge>				// Pass the elapsed time in seconds as an optional parameter
+      codeVerifier: <codeVerifier>		// For PKCE Oauth flow: If you use the Okta Auth JavaScript SDK to authenticate signin, get the code verifier from session storage. If you use the endpoint to authenticate signin, pass a cryptographically random string that you used to generate the codeChallenge value.
     });
   });
 });
 ```
 
-7. Trigger the signOut action, call the Okta Auth JavaScript SDK's **signOut** method after the [Auth.logout command](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-logout 'Goes to Auth provider plugin'). You could trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
+7. To trigger the sign-out action, call the Okta Auth JavaScript SDK's **signOut** method after the [Auth.logout command](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-logout 'Goes to Auth provider plugin'). You can trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
 
 ```{"title":"OktaAuth signOut method","language":"JavaScript"}
 AuthProvider.command('Auth.logout').finally(() => {
@@ -251,14 +251,14 @@ AuthProvider.command('Auth.logout').finally(() => {
 This blueprint includes a sample authentication app that you can run locally or from the Blueprint repo.
 
 :::primary
-**Note**: Regardless of the location from where you run the sample app, you need a Genesys Cloud user account in order for it to work. Our sample app uses the [Okta Sign-In using SDK](#configure-authenticated-messenger) approach.
+**Note**: Regardless of the location from where you run the sample app, you need a Genesys Cloud user account in order for it to work. Our sample app   * [enables authenticated sign-in with the Okta Auth JavaScript SDK](#enable-authenticated-sign-in-with-the-Okta-Auth-JavaScript-SDK "Goes to the Enable authenticated sign-in with the Okta Auth JavaScript SDK section).
 :::
 
 To run the sample app from the Blueprint repo:
 
 1. Click [here](https://genesyscloudblueprints.github.io/messenger-authentication-okta-integration-blueprint/oauth.html "Goes to the sample app").
 
-2. Enter the environment and deployment Id configured with Okta and click **Submit**.
+2. Enter the environment and deployment Id that you configured with Okta and click **Submit**.
 
 3. Enter the client credentials for authenticated web messaging.
 
@@ -266,6 +266,6 @@ To run the sample app from the Blueprint repo:
  Refer the source code for sample app [here](https://github.com/GenesysCloudBlueprints/messenger-authentication-okta-integration-blueprint/blob/main/docs/oauth.html "Goes to source code of the sample app")
 :::
 
-##Additional resources 
+## Additional resources 
 
 * [Platform API](/api/digital/webmessaging/authenticate "Goes to the Authenticated WebMessaging page in the Genesys Cloud Developer Center").
