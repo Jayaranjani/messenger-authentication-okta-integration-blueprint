@@ -44,7 +44,7 @@ summary: |
 4. On the Create a new app integration page, in the Sign-in method section, click **OpenID Connect**.
 5. For the application type, select **Web Application** and then click **Next**.
 6. On the New Web App Integration page, in the **App integration name** box, type a name for your app integration.
-7. Select the required **Grant type**. 
+7. For **Grant type**, leave all of the default selections. 
 
 ![Okta Application page](./images/OKTA.png "OKTA Application page")
 
@@ -148,7 +148,7 @@ The following table describes the parameters for the OktaAuth object.
 | `clientId` | Specify the clientID that was generated when you [set up your Okta app](#set-up-okta "Goes to the Set up Okta section").|
 | `issuer` | Specify the Okta URL that is listed in your Okta Developer Edition account under **Security** > **API** > **default**.|
 | `scopes`| If required, set the auth scopes to specify the access privileges that are being requested as part of authorization.|
-| `pkce` | The default value is true, which enables the PKCE OAuth flow. To use the Implicit flow or the Authorization Code flow, set this option to false. *Note: The PKCE OAuth flow works only with a secure domain.* |
+| `pkce` | The default value is true, which enables the PKCE OAuth flow. To use the Implicit flow or the Authorization Code flow, set this option to false. **Note**: The PKCE OAuth flow works only with a secure domain. |
 | `responseType`| To use the Authorization Code grant type, set this option to **code**.|
 | `maxAge` | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
 | `nonce` | The Okta Auth JavaScript SDK generates this random value. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value.|
@@ -268,4 +268,5 @@ To run the sample app from the Blueprint repo:
 
 ## Additional resources 
 
-* [Platform API](/api/digital/webmessaging/authenticate "Goes to the Authenticated WebMessaging page in the Genesys Cloud Developer Center").
+* [Platform API](/api/digital/webmessaging/authenticate "Goes to the Authenticated WebMessaging page in the Genesys Cloud Developer Center")
+
