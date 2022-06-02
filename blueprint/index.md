@@ -288,8 +288,8 @@ To run the sample app from the Blueprint repo:
 
 3. Enter the client credentials for authenticated web messaging.
 
-:::info
- Refer the source code for sample app [here](https://github.com/GenesysCloudBlueprints/messenger-authentication-okta-integration-blueprint/blob/main/docs/oauth.html "Goes to source code of the sample app")
+:::primary
+ **Note**: See the source code for sample app [here](https://github.com/GenesysCloudBlueprints/messenger-authentication-okta-integration-blueprint/blob/main/docs/oauth.html "Goes to source code for the sample app in this blueprint").
 :::
 
 ## Additional resources 
