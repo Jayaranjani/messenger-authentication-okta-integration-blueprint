@@ -196,7 +196,7 @@ The following table describes the parameters for the Auth URL.
 | `response_type`| Set this parameter to **code** to use the **Authorization Code** grant type.|
 | `max_age` | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
 | `nonce` | Specify a random string value, preferably an UUID format, that is returned in the ID token. |
-| `codeChallenge` | Specify the string value that the code verifier generated to support the PKCE OAuth flow. `codeChallenge` is verified in the access token request. **Note**: Code verifier is any random string value between 43 and 128 characters long. Okta uses it to recompute the code_challenge and verify if it matches the original code_challenge in the authorization request. For more information, see [Flow specifics](https://developer.okta.com/docs/guides/implement-grant-type/authcodepkce/main/#flow-specifics "Goes to the Flow specifics section of the Implement authorization by grant type page in the Okta Developer Edition documentation")|
+| `codeChallenge` | Specify the string value that the code verifier generated to support the PKCE OAuth flow. `codeChallenge` is verified in the access token request. **Note**: Code verifier is any random string value between 43 and 128 characters long. Okta uses it to recompute the code_challenge and verify if it matches the original code_challenge in the authorization request. For more information, see [the Flow specifics section in the Okta Developer Edition documentation](https://developer.okta.com/docs/guides/implement-grant-type/authcodepkce/main/#flow-specifics "Goes to the Flow specifics section of the Implement authorization by grant type page in the Okta Developer Edition documentation") or the [Sample code to generate code verifier and code challenge in this blueprint](#sample-code-to-generate-code-verifier-and-code-challenge "Goes to the Sample code to generate code verifier and code challenge section"|.
 | `codeChallengeMethod` | Method used to derive the code challenge for PKCE Oauth flow. The valid value is `S256`. |
 	{: class="table-striped table-bordered"}
 
@@ -244,6 +244,32 @@ Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
 AuthProvider.command('Auth.logout').finally(() => {
 	authClient.signOut();
 });
+```
+
+#### Sample code to generate code verifier and code challenge
+
+```{"title":"Sample code to generate code verifier and code challenge","language":"javascript"}
+//Code Verifier
+function generateCodeVerifier(length) {
+ let text = '';
+ const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+ for (let i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+ }
+
+return text;
+}
+
+//Code challenge
+function generateCodeChallenge(codeVerifier) {
+ return base64URL(CryptoJS.SHA256(codeVerifier)); // eslint-disable-line
+}
+function base64URL(data) {
+ return data.toString(CryptoJS.enc.Base64).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_'); // eslint-disable-line
+}
+
+verifier = generateCodeVerifier(128); //Generate code verifier for PKCE support in OAuth
+const challenge = generateCodeChallenge(verifier); // eslint-disable-line //Generate code challenge for PKCE support in OAuth
 ```
 
 ### Run the sample authentication app
