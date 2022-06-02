@@ -101,7 +101,7 @@ summary: |
  ![Genesys Cloud Messenger full snippet for deployment](./images/Snippet.png "Genesys Cloud Messenger full snippet for deployment")
 
 :::primary
-**Note**: From the snippet, make a note of the deployment ID and environment. You can use these values to [run the sample authentication app](#run-the-sample-authentication-app "Goes to the Run the sample app section).
+**Note**: From the snippet, make a note of the deployment ID and environment. You can use these values to [run the sample authentication app](#run-the-sample-authentication-app "Goes to the Run the sample app section").
 :::
 
 ## Configure the authenticated Messenger
