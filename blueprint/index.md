@@ -91,7 +91,7 @@ summary: |
 
 ## Update the Messenger deployment
 
-1. In Genesys Cloud > **Admin**, under **Message**, click **Messenger Deployments**, and then select the configuration [that you created](#update-the-messenger-configuration "Goes to the Update the Messenger configuration section").
+1. In Genesys Cloud > **Admin**, under **Message**, click **Messenger Deployments**, and then select [the configuration that you created](#update-the-messenger-configuration "Goes to the Update the Messenger configuration section").
 
  ![Genesys Cloud Messenger configuration](./images/Configuration.png "Genesys Cloud Messenger configuration")
 
