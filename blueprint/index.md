@@ -93,12 +93,12 @@ summary: |
 
 1. In Genesys Cloud > **Admin**, under **Message**, click **Messenger Deployments**, and then select the configuration [that you created](#update-the-messenger-configuration "Goes to the Update the Messenger configuration section").
 
- ![Genesys Cloud Messenger deployment](./images/Configuration.png "Genesys Cloud Messenger deployment")
+ ![Genesys Cloud Messenger configuration](./images/Configuration.png "Genesys Cloud Messenger configuration")
 
 3. Save the deployment. This creates the snippet that you need.
 4. Deploy the snippet on the website where you want Messenger to appear.
 
- ![Genesys Cloud Messenger deployment](./images/Snippet.png "Genesys Cloud Messenger deployment")
+ ![Genesys Cloud Messenger full snippet for deployment](./images/Snippet.png "Genesys Cloud Messenger full snippet for deployment")
 
 :::primary
 **Note**: From the snippet, make a note of the deployment ID and environment. You can use these values to [run the sample authentication app](#run-the-sample-authentication-app "Goes to the Run the sample app section).
