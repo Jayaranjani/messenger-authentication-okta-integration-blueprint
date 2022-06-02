@@ -101,7 +101,7 @@ summary: |
  ![Genesys Cloud Messenger full snippet for deployment](./images/Snippet.png "Genesys Cloud Messenger full snippet for deployment")
 
 :::primary
-**Note**: From the snippet, make a note of the deployment ID and environment. You can use these values to [run the sample authentication app](#run-the-sample-authentication-app "Goes to the Run the sample app section").
+**Note**: From the snippet, make a note of the deployment ID and environment. You can use these values to [run the sample app](#run-the-sample-app "Goes to the Run the sample app section").
 :::
 
 ## Configure the authenticated Messenger
@@ -109,7 +109,7 @@ summary: |
 1. Write necessary code to configure authenticated web messaging for Messenger when it runs in your webpage.
 
 2. To enable the Okta Sign-In experience using JavaScript, do either of the following:  
-  * [Enable authenticated sign-in with the Okta Auth JavaScript SDK](#enable-authenticated-sign-in-with-the-Okta-Auth-JavaScript-SDK "Goes to the Enable authenticated sign-in with the Okta Auth JavaScript SDK section).
+  * [Enable authenticated sign-in with the Okta Auth JavaScript SDK](#enable-authenticated-sign-in-with-the-Okta-Auth-JavaScript-SDK "Goes to the Enable authenticated sign-in with the Okta Auth JavaScript SDK section").
   * [Enable authenticated sign-in with the OAuth endpoint](#enable-authenticated-sign-in-with-the-oauth-endpoint "Goes to the Enable authenticated sign-in with the OAuth endpoint section").
 
 ### Enable authenticated sign-in with the Okta Auth JavaScript SDK  
@@ -238,7 +238,7 @@ Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
 });
 ```
 
-7. To trigger the sign-out action, call the Okta Auth JavaScript SDK's **signOut** method after the [Auth.logout command](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-logout 'Goes to Auth provider plugin'). You can trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
+7. To trigger the sign-out action, call the Okta Auth JavaScript SDK's **signOut** method after the [Auth.logout command](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-logout "Goes to Auth provider plugin"). You can trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
 
 ```{"title":"OktaAuth signOut method","language":"JavaScript"}
 AuthProvider.command('Auth.logout').finally(() => {
@@ -272,12 +272,12 @@ verifier = generateCodeVerifier(128); //Generate code verifier for PKCE support 
 const challenge = generateCodeChallenge(verifier); // eslint-disable-line //Generate code challenge for PKCE support in OAuth
 ```
 
-### Run the sample authentication app
+### Run the sample app
 
-This blueprint includes a sample authentication app that you can run locally or from the Blueprint repo.
+This blueprint includes a sample app that you can run locally or from the Blueprint repo.
 
 :::primary
-**Note**: Regardless of the location from where you run the sample app, you need a Genesys Cloud user account in order for it to work. Our sample app   * [enables authenticated sign-in with the Okta Auth JavaScript SDK](#enable-authenticated-sign-in-with-the-Okta-Auth-JavaScript-SDK "Goes to the Enable authenticated sign-in with the Okta Auth JavaScript SDK section).
+**Note**: Regardless of the location from where you run the sample app, you need a Genesys Cloud user account in order for it to work. Our sample app [enables authenticated sign-in with the Okta Auth JavaScript SDK](#enable-authenticated-sign-in-with-the-Okta-Auth-JavaScript-SDK "Goes to the Enable authenticated sign-in with the Okta Auth JavaScript SDK section).
 :::
 
 To run the sample app from the Blueprint repo:
