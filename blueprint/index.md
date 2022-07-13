@@ -151,8 +151,21 @@ The following table describes the parameters for the OktaAuth object.
 | `pkce` | The default value is true, which enables the PKCE OAuth flow. To use the Implicit flow or the Authorization Code flow, set this option to false. **Note**: The PKCE OAuth flow works only with a secure domain. |
 | `responseType`| To use the Authorization Code grant type, set this option to **code**.|
 | `maxAge` | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
-| `nonce` | The Okta Auth JavaScript SDK generates this random value. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value.|
+| `nonce` |  The Okta Auth JavaScript SDK generates this random value and stores it in session storage. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value. **Note**: OKTA requires client to pass nonce attribute while following Okta Auth JavaScript SDK  approach, although it shouldn't be mandatory based OIDC standard|
 {: class="table-striped table-bordered"}
+
+	```{"title":"Extracting nonce from session storage","language":"JavaScript"}
+		let oktaTransactionStorage = window.sessionStorage.getItem("okta-transaction-storage");
+
+		if (oktaTransactionStorage) {
+		const storage = JSON.parse(oktaTransactionStorage);
+
+		if (storage && Object.keys(storage).length) {
+		const { nonce } = storage || {};
+		}
+		}
+	```
+
 
 4. To trigger the signIn action, call the **signInWithRedirect** method with the request parameters. The **originalUri** parameter tracks where the user came from before they signed in. The additional parameters are mapped to the Authorize options. You can trigger the sign-in action via a link, button, and so on.
 
