@@ -152,7 +152,7 @@ The following table describes the parameters for the OktaAuth object.
 | `responseType`| To use the Authorization Code grant type, set this option to **code**.|
 | `maxAge` | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
 | `nonce` |  The Okta Auth JavaScript SDK generates this random value and stores it in session storage. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value. **Note**: With SDK approach, nonce config option is mandatory. |
-{: class="table-striped table-bordered"}
+	{: class="table-striped table-bordered"}
 
 	```{"title":"Extracting nonce from session storage","language":"JavaScript"}
 		let oktaTransactionStorage = window.sessionStorage.getItem("okta-transaction-storage");
@@ -173,7 +173,7 @@ The following table describes the parameters for the OktaAuth object.
 		authClient.signInWithRedirect({
 		originalUri: <your current page url here>,
 		...oktaConfig
-	});
+		});
 	```
 
 ### Enable authenticatecd sign-in with the OAuth endpoint
@@ -194,9 +194,9 @@ authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offl
 
 If you add the optional parameters, `nonce` and `maxAge`, your request URL looks like this:
 
-```{"title":"Example request URL with optional parameters `nonce` and `maxAge`","language":"html"}
+```{"title":"Example request URL with optional parameters nonce and maxAge","language":"html"}
 authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=<RedirectURL>&state=eyJiYWNrVG9QYXRoIjoiL3ByaXZhdGUiLCJpc3N1ZXIiOiJva3RhIiwiYnl0ZXMiOiItSEhlWEV3YmNRak5fQWl3a0NkanVDNEZpQ1VPRV81emkzeFlKa1BQaWcwIn0%3D&nonce=<nonce>&max_age=<maxAge>`
-	```
+```
 
 The following table describes the parameters for the Auth URL.
 
@@ -242,8 +242,8 @@ Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
 
   e.resolve({
       authCode: <authCode>,			// Pass your authCode here
-      redirectUri: <your redirect uri>,	// Pass the redirection URI configured in your authentication provider here
-      nonce: <nonce>,				//  Mandatory value in OKTA Javascript SDK approach.
+      redirectUri: <your redirect uri>,	   // Pass the redirection URI configured in your authentication provider here
+      nonce: <nonce>,				//  Mandatory parameter in OKTA Javascript SDK approach.
       maxAge: <maxAge>				// Pass the elapsed time in seconds as an optional parameter
       codeVerifier: <codeVerifier>		// For PKCE Oauth flow: If you use the Okta Auth JavaScript SDK to authenticate signin, get the code verifier from session storage. If you use the endpoint to authenticate signin, pass a cryptographically random string that you used to generate the codeChallenge value.
     });
