@@ -152,7 +152,7 @@ The following table describes the parameters for the OktaAuth object.
 | `responseType`| To use the Authorization Code grant type, set this option to **code**.|
 | `maxAge` | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
 | `nonce` |  The Okta Auth JavaScript SDK generates this random value and stores it in session storage. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value. **Note**: With SDK approach, nonce config option is mandatory. |
-	{:class="table-striped table-bordered"}
+	{: class="table-striped table-bordered"}
 
 	```{"title":"Extracting nonce from session storage","language":"JavaScript"}
 		let oktaTransactionStorage = window.sessionStorage.getItem("okta-transaction-storage");
@@ -211,7 +211,7 @@ The following table describes the parameters for the Auth URL.
 | `nonce` | Specify a random string value, preferably an UUID format, that is returned in the ID token. |
 | `codeChallenge` | Specify the string value that the code verifier generated to support the PKCE OAuth flow. `codeChallenge` is verified in the access token request. **Note**: Code verifier is any random string value between 43 and 128 characters long. Okta uses it to recompute the code_challenge and verify if it matches the original code_challenge in the authorization request. For more information, see [the Flow specifics section in the Okta Developer Edition documentation](https://developer.okta.com/docs/guides/implement-grant-type/authcodepkce/main/#flow-specifics "Goes to the Flow specifics section of the Implement authorization by grant type page in the Okta Developer Edition documentation") or the [Sample code to generate code verifier and code challenge](#sample-code-to-generate-code-verifier-and-code-challenge "Goes to the Sample code to generate code verifier and code challenge section").|
 | `codeChallengeMethod` | Method used to derive the code challenge for PKCE Oauth flow. The valid value is `S256`. |
-	{:class="table-striped table-bordered"}
+	{: class="table-striped table-bordered"}
 
 2. If the user does not have an existing Okta session, making this request opens the **Okta** sign-in page.
 3. If the user does have an existing Okta session, they arrive at the specified redirect_uri along with a code, as shown in the following code snippet.
