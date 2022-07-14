@@ -44,7 +44,7 @@ summary: |
 4. On the Create a new app integration page, in the Sign-in method section, click **OpenID Connect**.
 5. For the application type, select **Web Application** and then click **Next**.
 6. On the New Web App Integration page, in the **App integration name** box, type a name for your app integration.
-7. For **Grant type**, leave all of the default selections. 
+7. For **Grant type**, **Authorization code** is mandatory and check **Refresh token** if required. 
 
 ![Okta Application page](./images/OKTA.png "OKTA Application page")
 
@@ -151,7 +151,7 @@ The following table describes the parameters for the OktaAuth object.
 | `pkce` | The default value is true, which enables the PKCE OAuth flow. To use the Implicit flow or the Authorization Code flow, set this option to false. **Note**: The PKCE OAuth flow works only with a secure domain. |
 | `responseType`| To use the Authorization Code grant type, set this option to **code**.|
 | `maxAge` | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
-| `nonce` |  The Okta Auth JavaScript SDK generates this random value and stores it in session storage. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value. **Note**: OKTA requires client to pass nonce attribute while following Okta Auth JavaScript SDK  approach, although it shouldn't be mandatory based OIDC standard|
+| `nonce` |  The Okta Auth JavaScript SDK generates this random value and stores it in session storage. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value. **Note**: With SDK approach, nonce config option is mandatory. |
 {: class="table-striped table-bordered"}
 
 	```{"title":"Extracting nonce from session storage","language":"JavaScript"}
@@ -170,7 +170,7 @@ The following table describes the parameters for the OktaAuth object.
 4. To trigger the signIn action, call the **signInWithRedirect** method with the request parameters. The **originalUri** parameter tracks where the user came from before they signed in. The additional parameters are mapped to the Authorize options. You can trigger the sign-in action via a link, button, and so on.
 
 	```{"title":"OktaAuth signInWithRedirect method","language":"JavaScript"}
-	authClient.signInWithRedirect({
+		authClient.signInWithRedirect({
 		originalUri: <your current page url here>,
 		...oktaConfig
 	});
@@ -243,7 +243,7 @@ Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
   e.resolve({
       authCode: <authCode>,			// Pass your authCode here
       redirectUri: <your redirect uri>,	// Pass the redirection URI configured in your authentication provider here
-      nonce: <nonce>,				//  If you use the Okta Auth JavaScript SDK to authenticate signin, pass the random string value stored in session storage. If you use the endpoint to authenticate signin, generate a random string value.
+      nonce: <nonce>,				//  Mandatory value in OKTA Javascript SDK approach.
       maxAge: <maxAge>				// Pass the elapsed time in seconds as an optional parameter
       codeVerifier: <codeVerifier>		// For PKCE Oauth flow: If you use the Okta Auth JavaScript SDK to authenticate signin, get the code verifier from session storage. If you use the endpoint to authenticate signin, pass a cryptographically random string that you used to generate the codeChallenge value.
     });
