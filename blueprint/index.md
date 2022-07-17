@@ -49,11 +49,9 @@ summary: |
 ![Okta Application page](./images/OKTA.png "OKTA Application page")
 
 8. Add the **Sign-in redirect URIs**. 
-	* For local use while you are developing, add http://{local_domain_name}. Example: http://localhost:8080/. 
-	* For production use, add the URL where Messenger will initialize after login.
+	* Add full page URL where messenger have to redirect after login.
 9. Add the **Sign-out redirect URIs**.
-	* For local use while you are developing, add http://{local_domain_name}. Example: http://localhost:8080/. 
-	* For production use, add the appropriate URL.
+	* Add full page URL where messenger have to redirect after logout.
 10. Under **Security**, click **API** > **Trusted Origin** and add your web page origin in the Okta account.
 11. In the **Assignment** section, select the option that best suits your organization and click **Save**. This creates the client credentials.
 12. To find the Okta URL, navigate to **Security** > **API** and click **Default**. The Okta URL appears in the **Issuer** section.
@@ -151,7 +149,7 @@ The following table describes the parameters for the OktaAuth object.
 | `pkce` | The default value is true, which enables the PKCE OAuth flow. To use the Implicit flow or the Authorization Code flow, set this option to false. **Note**: The PKCE OAuth flow works only with a secure domain. |
 | `responseType`| To use the Authorization Code grant type, set this option to **code**.|
 | `maxAge` | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
-| `nonce` |  The Okta Auth JavaScript SDK generates this random value and stores it in session storage. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value. **Note**: With SDK approach, nonce config option is mandatory. |
+| `nonce` |  The Okta Auth JavaScript SDK generates this random value. This value is stored in cookie and session storage. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value. |
 	{: class="table-striped table-bordered"}
 
 	```{"title":"Extracting nonce from session storage","language":"JavaScript"}
@@ -231,6 +229,13 @@ Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
   // *********
   // getAuthCode
 
+  let oktaTransactionStorage = window.document.cookie.toString(); // Get nonce from cookie storage
+
+  if (oktaTransactionStorage) {
+  const storage = oktaTransactionStorage.split('okta-oauth-nonce=')[1]; // Extract 'okta-oauth-nonce' cookie from 'oktaTransactionStorage'
+  const nonce = storage.split(';')[0];
+  }
+
   const urlParams = new URLSearchParams(window.location.search); // Get the authorization response which is added as a query string from the redirect URL
   const authCode = urlParams.has('code') ? urlParams.get('code'); // Get code from the query string
 
@@ -250,6 +255,10 @@ Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
   });
 });
 ```
+
+:::primary
+**Note**: With OKTA SDK approach nonce option is mandatory to resolve [getAuthCode](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#authprovider-plugin "Goes to the Commands and events page") command.
+:::
 
 7. To trigger the sign-out action, call the Okta Auth JavaScript SDK's **signOut** method after the [Auth.logout command](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-logout "Goes to Auth provider plugin"). You can trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
 
