@@ -44,7 +44,11 @@ summary: |
 4. On the Create a new app integration page, in the Sign-in method section, click **OpenID Connect**.
 5. For the application type, select **Web Application** and then click **Next**.
 6. On the New Web App Integration page, in the **App integration name** box, type a name for your app integration.
-7. For **Grant type**, **Authorization code** is mandatory and check **Refresh token** if required. 
+7. For **Grant type**, **Authorization code** is mandatory and select **Refresh token** if required. 
+
+:::primary
+ **Note**: Refresh token is required to obtain a new access token if the existing access token has expired.
+:::
 
 ![Okta Application page](./images/OKTA.png "OKTA Application page")
 
@@ -149,16 +153,16 @@ The following table describes the parameters for the OktaAuth object.
 | `pkce` | The default value is true, which enables the PKCE OAuth flow. To use the Implicit flow or the Authorization Code flow, set this option to false. **Note**: The PKCE OAuth flow works only with a secure domain. |
 | `responseType`| To use the Authorization Code grant type, set this option to **code**.|
 | `maxAge` | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
-| `nonce` |  The Okta Auth JavaScript SDK generates this random value. This value is stored in cookie and session storage. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value. |
+| `nonce` |  The Okta Auth JavaScript SDK generates this random value. This value is stored in cookie and session storage. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value.  **Note**: nonce is mandatory to resolve in  [getAuthCode](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#authprovider-plugin "Goes to the Commands and events page") command when using OKTA SDK approach|
 	{: class="table-striped table-bordered"}
 
-	```{"title":"Extracting nonce from session storage","language":"JavaScript"}
-		let oktaTransactionStorage = window.sessionStorage.getItem("okta-transaction-storage");
+	```{"title":"How to extract nonce from session storage","language":"JavaScript"}
+		let oktaTransactionStorage = window.sessionStorage.getItem("okta-transaction-storage"); // Get 'okta-transaction-storage' value from session storage
 
 		if (oktaTransactionStorage) {
-		const storage = JSON.parse(oktaTransactionStorage);
+		const storage = JSON.parse(oktaTransactionStorage); // Convert text in 'oktaTransactionStorage' to javascript object
 
-		if (storage && Object.keys(storage).length) {
+		if (storage && Object.keys(storage).length) { // If 'storage' is present destructure nonce from 'storage'
 		const { nonce } = storage || {};
 		}
 		}
@@ -257,7 +261,9 @@ Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
 ```
 
 :::primary
-**Note**: With OKTA SDK approach nonce option is mandatory to resolve [getAuthCode](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#authprovider-plugin "Goes to the Commands and events page") command.
+**Note**: 
+- With OKTA SDK approach **nonce** option is mandatory to resolve in [getAuthCode](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#authprovider-plugin "Goes to the Commands and events page") command.
+- The **redirectUri** option must match the **Sign-in redirect URI** specified in OKTA Developer Edition account.
 :::
 
 7. To trigger the sign-out action, call the Okta Auth JavaScript SDK's **signOut** method after the [Auth.logout command](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-logout "Goes to Auth provider plugin"). You can trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
