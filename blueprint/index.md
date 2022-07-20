@@ -233,7 +233,7 @@ Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
   // *********
   // getAuthCode
 
-  let oktaTransactionStorage = window.document.cookie.toString(); // Get nonce from cookie storage
+  let oktaTransactionStorage = window.document.cookie.toString(); // Get nonce from cookie
 
   if (oktaTransactionStorage) {
   const storage = oktaTransactionStorage.split('okta-oauth-nonce=')[1]; // Extract 'okta-oauth-nonce' cookie from 'oktaTransactionStorage'
