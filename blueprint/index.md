@@ -153,7 +153,7 @@ The following table describes the parameters for the OktaAuth object.
 | `pkce` | The default value is true, which enables the PKCE OAuth flow. To use the Implicit flow or the Authorization Code flow, set this option to false. **Note**: The PKCE OAuth flow works only with a secure domain. |
 | `responseType`| To use the Authorization Code grant type, set this option to **code**.|
 | `maxAge` | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
-| `nonce` |  The Okta Auth JavaScript SDK generates this random value. This value is stored in cookie and session storage. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value.  **Note**: nonce is mandatory to resolve in  [getAuthCode](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#authprovider-plugin "Goes to the Commands and events page") command when using OKTA SDK approach|
+| `nonce` |  The Okta Auth JavaScript SDK generates this random value. This value is stored in cookie and session storage. You can also pass your preferred nonce value as a paramater to the OktaAuth object if you want to overwrite the generated nonce value. <br/> **Note**: nonce is mandatory to resolve in  [getAuthCode](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#authprovider-plugin "Goes to the Commands and events page") command when using OKTA SDK approach|
 	{: class="table-striped table-bordered"}
 
 	```{"title":"How to extract nonce from session storage","language":"JavaScript"}
