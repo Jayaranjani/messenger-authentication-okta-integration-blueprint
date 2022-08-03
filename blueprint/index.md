@@ -274,7 +274,7 @@ const challenge = generateCodeChallenge(verifier); // eslint-disable-line //Gene
 
 ### OKTA debugging guidelines
 
-OKTA consists of debugging tool that helps you monitor the activity and security of your org. The System Log contains details of all logged events for your org. To navigate to the System Log, in the Admin Console, go to Reports > System Log.
+OKTA consists of a debugging tool that helps you to monitor the activity and security of your org. The **System Log** contains details of all logged events for your org. To navigate to the System Log, in the Admin Console, go to **Reports > System Log**.
 
 Various events in your org can be viewed and monitored under the following categories:
 
