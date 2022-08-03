@@ -272,6 +272,24 @@ verifier = generateCodeVerifier(128); //Generate code verifier for PKCE support 
 const challenge = generateCodeChallenge(verifier); // eslint-disable-line //Generate code challenge for PKCE support in OAuth
 ```
 
+### OKTA debugging guidelines
+
+OKTA consists of debugging tool that helps you monitor the activity and security of your org. The System Log contains details of all logged events for your org. To navigate to the System Log, in the Admin Console, go to Reports > System Log.
+
+Various events in your org can be viewed and monitored under the following categories:
+
+- Graphs
+
+- Events table
+
+- Filters and search
+
+![System report log](./images/Reports.png "Okta system log")
+
+The failure events can be observed under **Events** table. 
+
+![Events log](./images/Events.png "Okta Event log")
+
 ### Run the sample app
 
 This blueprint includes a sample app that you can run locally or from the Blueprint repo.
@@ -295,4 +313,5 @@ To run the sample app from the Blueprint repo:
 ## Additional resources 
 
 * [Platform API](/api/digital/webmessaging/authenticate "Goes to the Authenticated WebMessaging page in the Genesys Cloud Developer Center")
+* [OKTA System log](https://help.okta.com/en-us/Content/Topics/Reports/Reports_SysLog.htm "Goes to OKTA help system log")
 
