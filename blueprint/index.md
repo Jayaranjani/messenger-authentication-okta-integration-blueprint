@@ -301,3 +301,4 @@ To run the sample app from the Blueprint repo:
 ## Additional resources 
 
 * [Platform API](/api/digital/webmessaging/authenticate "Goes to the Authenticated WebMessaging page in the Genesys Cloud Developer Center")
+
