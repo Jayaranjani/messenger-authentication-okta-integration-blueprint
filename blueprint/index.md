@@ -274,21 +274,9 @@ const challenge = generateCodeChallenge(verifier); // eslint-disable-line //Gene
 
 ### OKTA debugging guidelines
 
-OKTA consists of a debugging tool that helps you to monitor the activity and security of your org. The **System Log** contains details of all logged events for your org. To navigate to the System Log, in the Admin Console, go to **Reports > System Log**.
-
-Various events in your org can be viewed and monitored under the following categories:
-
-- Graphs
-
-- Events table
-
-- Filters and search
+OKTA consists of a debugging tool that helps you to monitor the activity and security of your org. The **System Log** contains details of all logged events for your org. To navigate to the System Log, Log in to your Okta Developer Edition account, go to **Reports > System Log**. We can debug whether the request from Genesys Cloud reached Okta APIs in event info column under events table.
 
 ![System report log](./images/Reports.png "Okta system log")
-
-The failure events can be observed under **Events** table. 
-
-![Events log](./images/Events.png "Okta Event log")
 
 ### Run the sample app
 
@@ -313,5 +301,3 @@ To run the sample app from the Blueprint repo:
 ## Additional resources 
 
 * [Platform API](/api/digital/webmessaging/authenticate "Goes to the Authenticated WebMessaging page in the Genesys Cloud Developer Center")
-* [OKTA System log](https://help.okta.com/en-us/Content/Topics/Reports/Reports_SysLog.htm "Goes to OKTA help system log")
-
