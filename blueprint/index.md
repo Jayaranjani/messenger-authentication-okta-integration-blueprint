@@ -300,12 +300,6 @@ verifier = generateCodeVerifier(128); //Generate code verifier for PKCE support 
 const challenge = generateCodeChallenge(verifier); // eslint-disable-line //Generate code challenge for PKCE support in OAuth
 ```
 
-### OKTA debugging guidelines
-
-OKTA consists of a debugging tool that helps you to monitor the activity and security of your org. The **System Log** contains details of all logged events for your org. To navigate to the System Log, Log in to your Okta Developer Edition account, go to **Reports > System Log**. We can debug whether the request from Genesys Cloud reached Okta APIs in event info column under events table.
-
-![System report log](./images/Reports.png "Okta system log")
-
 ### Run the sample app
 
 This blueprint includes a sample app that you can run locally or from the Blueprint repo.
@@ -325,6 +319,12 @@ To run the sample app from the Blueprint repo:
 :::primary
  **Note**: See the source code for sample app [here](https://github.com/GenesysCloudBlueprints/messenger-authentication-okta-integration-blueprint/blob/main/docs/oauth.html "Goes to source code for the sample app in this blueprint").
 :::
+
+### OKTA debugging guidelines
+
+OKTA consists of a debugging tool that helps you to monitor the activity and security of your org. The **System Log** contains details of all logged events for your org. To navigate to the System Log, Log in to your Okta Developer Edition account, go to **Reports > System Log**. We can debug whether the request from Genesys Cloud reached Okta APIs in event info column under events table.
+
+![System report log](./images/Reports.png "Okta system log")
 
 ## Additional resources 
 
