@@ -178,7 +178,7 @@ The following table describes the parameters for the OktaAuth object.
 		});
 	```
 
-### Enable authenticatecd sign-in with the OAuth endpoint
+### Enable authenticated sign-in with the OAuth endpoint
 
 1. Generate the **Auth URL** and trigger the login action. You can trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
 
@@ -222,9 +222,15 @@ The following table describes the parameters for the Auth URL.
 https://mypureclloud.com/?code=P5I7mdxxdv13_JfXrCSq&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601 // Code specifies Okta authcode
 ```
 
-4. The page is reloaded when the user is redirected from the **Okta** sign-in page. The page reload initializes the [Auth plugin](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-plugin "Goes to the Commands and events page") and calls its [getTokens command](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-plugin "Goes to the Commands and events page") for authentication.
-5. From the redirect URL, split the **OKTA** authcode.
-6. Create your AuthProvider plugin and register the [getAuthCode](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#authprovider-plugin "Goes to the Commands and events page") command.
+4. The redirect_uri may also contain the optional **iss** parameter when the authorization server has **authorization_response_iss_parameter_supported** set to true. This results in the issuer URL being returned along with the code as shown in the code snippet below.
+
+```{"title":"Redirect url appended with code, state and iss","language":"javascript"}
+https://mypureclloud.com/?code=P5I7mdxxdv13_JfXrCSq&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601&iss=https://{okta-user-domain}.okta.com/oauth2/default // Code specifies Okta authcode and iss specifies Okta issuer URL
+```
+
+5. The page is reloaded when the user is redirected from the **Okta** sign-in page. The page reload initializes the [Auth plugin](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-plugin "Goes to the Commands and events page") and calls its [getTokens command](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-plugin "Goes to the Commands and events page") for authentication.
+6. From the redirect URL, split the **OKTA** authcode.
+7. Create your AuthProvider plugin and register the [getAuthCode](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#authprovider-plugin "Goes to the Commands and events page") command.
 
 ```{"title":"Prepare the AuthProvider plugin","language":"javascript"}
 Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
@@ -242,6 +248,7 @@ Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
 
   const urlParams = new URLSearchParams(window.location.search); // Get the authorization response which is added as a query string from the redirect URL
   const authCode = urlParams.has('code') ? urlParams.get('code'); // Get code from the query string
+  const iss = urlParams.has('iss') ? urlParams.get('iss'); // Get optional iss parameter from the query string. urlParams will decode this issuer URL if it is encoded.
 
   /* Register Command - mandatory */
 
@@ -255,6 +262,7 @@ Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
       nonce: <nonce>,				//  Mandatory parameter in OKTA Javascript SDK approach.
       maxAge: <maxAge>				// Pass the elapsed time in seconds as an optional parameter
       codeVerifier: <codeVerifier>		// For PKCE Oauth flow: If you use the Okta Auth JavaScript SDK to authenticate signin, get the code verifier from session storage. If you use the endpoint to authenticate signin, pass a cryptographically random string that you used to generate the codeChallenge value.
+      iss: <iss>					// Pass the optional parameter iss if it was returned in the authorization response by your Authentication provider.
     });
   });
 });
@@ -266,7 +274,7 @@ Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
 - The **redirectUri** option must match the **Sign-in redirect URI** specified in OKTA Developer Edition account.
 :::
 
-7. To trigger the sign-out action, call the Okta Auth JavaScript SDK's **signOut** method after the [Auth.logout command](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-logout "Goes to Auth provider plugin"). You can trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
+8. To trigger the sign-out action, call the Okta Auth JavaScript SDK's **signOut** method after the [Auth.logout command](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-logout "Goes to Auth provider plugin"). You can trigger this action when the user clicks a link, button, or interacts with another UI element, for example.  
 
 ```{"title":"OktaAuth signOut method","language":"JavaScript"}
 AuthProvider.command('Auth.logout').finally(() => {
