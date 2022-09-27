@@ -186,18 +186,21 @@ Your request URL looks like this:
 
 ```{"title":"Example request URL","language":"html"}
 authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=<RedirectURL>&state=eyJiYWNrVG9QYXRoIjoiL3ByaXZhdGUiLCJpc3N1ZXIiOiJva3RhIiwiYnl0ZXMiOiItSEhlWEV3YmNRak5fQWl3a0NkanVDNEZpQ1VPRV81emkzeFlKa1BQaWcwIn0%3D`
+document.getqueryselector('a').onClick() = authURL;
 ```
 
 If you enable the PKCE OAuth flow, your request URL looks like this: 
 
 ```{"title":"Example request URL with PKCE OAuth flow enabled","language":"html"}
 authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=<RedirectURL>&state=eyJiYWNrVG9QYXRoIjoiL3ByaXZhdGUiLCJpc3N1ZXIiOiJva3RhIiwiYnl0ZXMiOiItSEhlWEV3YmNRak5fQWl3a0NkanVDNEZpQ1VPRV81emkzeFlKa1BQaWcwIn0%3D&code_challenge_method=S256&code_challenge=<codeChallenge>`
+document.getqueryselector('a').onClick() = authURL;
 ```
 
 If you add the optional parameters, `nonce` and `maxAge`, your request URL looks like this:
 
 ```{"title":"Example request URL with optional parameters nonce and maxAge","language":"html"}
 authURL = `<DomainURL>client_id=<ClientId>&scope=openid%20email%20profile%20offline_access&response_type=code&redirect_uri=<RedirectURL>&state=eyJiYWNrVG9QYXRoIjoiL3ByaXZhdGUiLCJpc3N1ZXIiOiJva3RhIiwiYnl0ZXMiOiItSEhlWEV3YmNRak5fQWl3a0NkanVDNEZpQ1VPRV81emkzeFlKa1BQaWcwIn0%3D&nonce=<nonce>&max_age=<maxAge>`
+document.getqueryselector('a').onClick() = authURL;
 ```
 
 The following table describes the parameters for the Auth URL.
@@ -209,17 +212,41 @@ The following table describes the parameters for the Auth URL.
 | `RedirectURL`| Specify the URL to where the browser should be redirected when the user signs in. This must be your full page URL, which is listed in your Okta application's sign-in redirect URIs.|
 | `Auth scopes`| Set auth scopes to specify the access privileges that are being requested as part of the authorization, if required.|
 | `response_type`| Set this parameter to **code** to use the **Authorization Code** grant type.|
-| `max_age` | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.|
-| `nonce` | Specify a random string value, preferably an UUID format, that is returned in the ID token. |
-| `codeChallenge` | Specify the string value that the code verifier generated to support the PKCE OAuth flow. `codeChallenge` is verified in the access token request. **Note**: Code verifier is any random string value between 43 and 128 characters long. Okta uses it to recompute the code_challenge and verify if it matches the original code_challenge in the authorization request. For more information, see [the Flow specifics section in the Okta Developer Edition documentation](https://developer.okta.com/docs/guides/implement-grant-type/authcodepkce/main/#flow-specifics "Goes to the Flow specifics section of the Implement authorization by grant type page in the Okta Developer Edition documentation") or the [Sample code to generate code verifier and code challenge](#sample-code-to-generate-code-verifier-and-code-challenge "Goes to the Sample code to generate code verifier and code challenge section").|
+| `max_age` | Specify the allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta(optional).|
+| `nonce` | Specify a random string value, preferably an UUID format, that is returned in the ID token(optional). |
+| `codeChallenge` | Specify the string value that the code verifier generated to support the PKCE OAuth flow. `codeChallenge` is verified in the access token request. **Note**: Code verifier is any random string value between 43 and 128 characters long. Okta uses it to recompute the code_challenge and verify if it matches the original code_challenge in the authorization request. For more information, see [the Flow specifics section in the Okta Developer Edition documentation](https://developer.okta.com/docs/guides/implement-grant-type/authcodepkce/main/#flow-specifics "Goes to the Flow specifics section of the Implement authorization by grant type page in the Okta Developer Edition documentation").|
 | `codeChallengeMethod` | Method used to derive the code challenge for PKCE Oauth flow. The valid value is `S256`. |
 	{: class="table-striped table-bordered"}
+
+```{"title":"Sample code to generate code verifier and code challenge","language":"javascript"}
+//Code Verifier
+function generateCodeVerifier(length) {
+ let text = '';
+ const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+ for (let i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+ }
+
+return text;
+}
+
+//Code challenge
+function generateCodeChallenge(codeVerifier) {
+ return base64URL(CryptoJS.SHA256(codeVerifier));
+}
+function base64URL(data) {
+ return data.toString(CryptoJS.enc.Base64).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+}
+
+verifier = generateCodeVerifier(128); //Generate code verifier for PKCE support in OAuth
+const challenge = generateCodeChallenge(verifier); //Generate code challenge for PKCE support in OAuth
+```
 
 2. If the user does not have an existing Okta session, making this request opens the **Okta** sign-in page.
 3. If the user does have an existing Okta session, they arrive at the specified redirect_uri along with a code, as shown in the following code snippet.
 
 ```{"title":"Redirect url appended with code and state","language":"javascript"}
-https://mypureclloud.com/?code=P5I7mdxxdv13_JfXrCSq&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601 // Code specifies Okta authcode
+https://mypurecloud.com/?code=P5I7mdxxdv13_JfXrCSq&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601 // Code specifies Okta authcode
 ```
 
 4. The page is reloaded when the user is redirected from the **Okta** sign-in page. The page reload initializes the [Auth plugin](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-plugin "Goes to the Commands and events page") and calls its [getTokens command](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/SDKCommandsEvents#auth-plugin "Goes to the Commands and events page") for authentication.
@@ -272,32 +299,6 @@ Genesys('registerPlugin', 'AuthProvider', (AuthProvider) => {
 AuthProvider.command('Auth.logout').finally(() => {
 	authClient.signOut();
 });
-```
-
-### Sample code to generate code verifier and code challenge
-
-```{"title":"Sample code to generate code verifier and code challenge","language":"javascript"}
-//Code Verifier
-function generateCodeVerifier(length) {
- let text = '';
- const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
- for (let i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
- }
-
-return text;
-}
-
-//Code challenge
-function generateCodeChallenge(codeVerifier) {
- return base64URL(CryptoJS.SHA256(codeVerifier)); // eslint-disable-line
-}
-function base64URL(data) {
- return data.toString(CryptoJS.enc.Base64).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_'); // eslint-disable-line
-}
-
-verifier = generateCodeVerifier(128); //Generate code verifier for PKCE support in OAuth
-const challenge = generateCodeChallenge(verifier); // eslint-disable-line //Generate code challenge for PKCE support in OAuth
 ```
 
 ### Run the sample app
