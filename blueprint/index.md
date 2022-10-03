@@ -134,7 +134,7 @@ Follow these steps to include the Okta Auth JavaScript SDK in your webpage.
 		clientId: <ClientId>,
 		issuer: <Okta URL>,
 		scopes: ['openid', 'email', 'profile', 'offline_access'],
-		pkce: true,
+		pkce: false, // default is true. Set to 'false' in case of implcit/authorization code flow
 		responseType: 'code',
 		maxAge : <MaxAge>
 	};
